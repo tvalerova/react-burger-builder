@@ -11,6 +11,8 @@ const controls = [
 
 const buildControls = (props) => (
     <div className = 'BuildControls'>
+        {/* to only show 2 decimals in the price, we use the toFixed method */}
+        <p>Current Price: <strong>{props.price.toFixed(2)}</strong></p>
         {controls.map(ctrl => (
             <BuildControl 
             key={ctrl.label} 

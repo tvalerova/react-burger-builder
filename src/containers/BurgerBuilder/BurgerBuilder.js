@@ -76,7 +76,7 @@ class BurgerBuilder extends Component {
             // if the count of that ingredient is 0 or smaller, this will be set to true
             disabledInfo[key] = disabledInfo[key] <= 0
         }
-        
+
         return (
             <Aux>
             <Burger ingredients={this.state.ingredients} />
@@ -85,6 +85,7 @@ class BurgerBuilder extends Component {
             // we will now use this method in BuildControls js
             ingredientRemoved={this.removeIngredientHandler}
             disabled={disabledInfo}
+            price={this.state.totalPrice}
             />
             </Aux>
             );
