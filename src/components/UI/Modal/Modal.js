@@ -1,9 +1,14 @@
 import React from 'react';
 
 import './Modal.css';
+import Aux from '../../../hoc/Aux';
+import Backdrop from '../Backdrop/Backdrop';
 
 // the modal will be a component that can be wrapped around any content
 const modal = (props) => (
+    <Aux>
+        {/* if the Modal is shown, the backdrop should show too */}
+        <Backdrop show={props.show} clicked={props.modalClosed}/>
     <div className='Modal' 
     style={{
         transform: props.show ? 'translateY(0)' : 'translateY(-100vh)', 
@@ -11,6 +16,7 @@ const modal = (props) => (
     }}>
         {props.children}
     </div>
+    </Aux>
 );
 
 export default modal;

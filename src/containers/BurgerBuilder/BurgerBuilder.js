@@ -85,11 +85,24 @@ class BurgerBuilder extends Component {
         this.setState({totalPrice: newPrice, ingredients: updatedIngredients});
         this.updatePurchaseState(updatedIngredients);
     }
+    
+    // originally we used this syntax, but it did not work
+    // purchaseHandler () {
+    //     this.setState({purchasing: true});
+    // }
+    // this syntax does not work correctly when we try to use "this" keyword in there
+    // if the method is triggered through an event - in this case "this" will then not refer to the class
+    // we need to use arrow function
 
     // this method should be triggered when we click the order button
     purchaseHandler = () => {
         this.setState({purchasing: true});
     }
+
+    purchaseCancelHandler = () => {
+        this.setState({purchasing: false});
+    }
+
 
     render () {
         const disabledInfo = {
@@ -104,7 +117,7 @@ class BurgerBuilder extends Component {
 
         return (
             <Aux>
-            <Modal show={this.state.purchasing}>
+            <Modal show={this.state.purchasing} modalClosed={this.purchaseCancelHandler}>
                 <OderSummary ingredients={this.state.ingredients}/>
             </Modal>
             <Burger ingredients={this.state.ingredients} />
