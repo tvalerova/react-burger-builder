@@ -33,7 +33,9 @@ class BurgerBuilder extends Component {
         // base price for a burger regardless of the ingredients is 4 
         totalPrice: 4,
         // will turn true if at least one ingredient has been added to the order
-        purchasable: false 
+        purchasable: false,
+        // we need to know if the order button was clicked
+        purchasing: false
     }
 
     updatePurchaseState (ingredients) {
@@ -84,7 +86,10 @@ class BurgerBuilder extends Component {
         this.updatePurchaseState(updatedIngredients);
     }
 
-
+    // this method should be triggered when we click the order button
+    purchaseHandler = () => {
+        this.setState({purchasing: true});
+    }
 
     render () {
         const disabledInfo = {
@@ -99,7 +104,7 @@ class BurgerBuilder extends Component {
 
         return (
             <Aux>
-            <Modal>
+            <Modal show={this.state.purchasing}>
                 <OderSummary ingredients={this.state.ingredients}/>
             </Modal>
             <Burger ingredients={this.state.ingredients} />
@@ -109,6 +114,8 @@ class BurgerBuilder extends Component {
             ingredientRemoved={this.removeIngredientHandler}
             disabled={disabledInfo}
             purchasable={this.state.purchasable}
+            // this method will get executed when we click the order now button
+            ordered={this.purchaseHandler}
             price={this.state.totalPrice}
             />
             </Aux>
