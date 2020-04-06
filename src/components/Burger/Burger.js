@@ -13,7 +13,9 @@ const burger = ( props ) => {
             } );
         } )
         // we flatten the array with reduce - right now we have an array of arrays
+        // it receives 2 args - previous and current value
         .reduce((arr, el) => {
+            // it will loop through the elements and add them to the initial value
             return arr.concat(el)
         }, []);
 
