@@ -29,7 +29,24 @@ class BurgerBuilder extends Component {
             meat: 0
         },  
         // base price for a burger regardless of the ingredients is 4 
-        totalPrice: 4 
+        totalPrice: 4,
+        // will turn true if at least one ingredient has been added to the order
+        purchasable: false 
+    }
+
+    updatePurchaseState (ingredients) {
+        
+        // the keys will create an array of strings entries, such as salad, bacon, cheese etc
+        const sum = Object.keys(ingredients)
+        .map(igKey => {
+            // we will return the values of each key = amounts of each ingredient
+            return ingredients[igKey]
+            // we get a sum of all ingredients 
+        }).reduce((sum, el) => {
+            return sum + el;
+        }, 0);
+        // this will evaluate to true or false
+        this.setState({purchasable: sum > 0});
     }
 
     addIngredientHandler = (type) => {
@@ -43,6 +60,7 @@ class BurgerBuilder extends Component {
         const oldPrice = this.state.totalPrice;
         const newPrice = oldPrice + priceAddition;
         this.setState({totalPrice: newPrice, ingredients: updatedIngredients});
+        this.updatePurchaseState(updatedIngredients);
     }
     // we pass this method to the BuildControls tag 
     removeIngredientHandler = (type) => {
@@ -61,7 +79,7 @@ class BurgerBuilder extends Component {
         const oldPrice = this.state.totalPrice;
         const newPrice = oldPrice - priceDeduction;
         this.setState({totalPrice: newPrice, ingredients: updatedIngredients});
-
+        this.updatePurchaseState(updatedIngredients);
     }
 
 
@@ -85,6 +103,7 @@ class BurgerBuilder extends Component {
             // we will now use this method in BuildControls js
             ingredientRemoved={this.removeIngredientHandler}
             disabled={disabledInfo}
+            purchasable={this.state.purchasable}
             price={this.state.totalPrice}
             />
             </Aux>
