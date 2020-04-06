@@ -22,14 +22,14 @@ class BurgerBuilder extends Component {
     //     super(props);
     //     this.state = {...}
     // }
-    
+
     state = {
         ingredients: {
-            salad: 0, 
+            salad: 0,
             bacon: 0,
             cheese: 0,
             meat: 0
-        },  
+        },
         // base price for a burger regardless of the ingredients is 4 
         totalPrice: 4,
         // will turn true if at least one ingredient has been added to the order
@@ -38,19 +38,19 @@ class BurgerBuilder extends Component {
         purchasing: false
     }
 
-    updatePurchaseState (ingredients) {
-        
+    updatePurchaseState(ingredients) {
+
         // the keys will create an array of strings entries, such as salad, bacon, cheese etc
         const sum = Object.keys(ingredients)
-        .map(igKey => {
-            // we will return the values of each key = amounts of each ingredient
-            return ingredients[igKey]
-            // we get a sum of all ingredients 
-        }).reduce((sum, el) => {
-            return sum + el;
-        }, 0);
+            .map(igKey => {
+                // we will return the values of each key = amounts of each ingredient
+                return ingredients[igKey]
+                // we get a sum of all ingredients 
+            }).reduce((sum, el) => {
+                return sum + el;
+            }, 0);
         // this will evaluate to true or false
-        this.setState({purchasable: sum > 0});
+        this.setState({ purchasable: sum > 0 });
     }
 
     addIngredientHandler = (type) => {
@@ -63,7 +63,7 @@ class BurgerBuilder extends Component {
         const priceAddition = INGREDIENT_PRICES[type];
         const oldPrice = this.state.totalPrice;
         const newPrice = oldPrice + priceAddition;
-        this.setState({totalPrice: newPrice, ingredients: updatedIngredients});
+        this.setState({ totalPrice: newPrice, ingredients: updatedIngredients });
         this.updatePurchaseState(updatedIngredients);
     }
     // we pass this method to the BuildControls tag 
@@ -82,10 +82,10 @@ class BurgerBuilder extends Component {
         const priceDeduction = INGREDIENT_PRICES[type];
         const oldPrice = this.state.totalPrice;
         const newPrice = oldPrice - priceDeduction;
-        this.setState({totalPrice: newPrice, ingredients: updatedIngredients});
+        this.setState({ totalPrice: newPrice, ingredients: updatedIngredients });
         this.updatePurchaseState(updatedIngredients);
     }
-    
+
     // originally we used this syntax, but it did not work
     // purchaseHandler () {
     //     this.setState({purchasing: true});
@@ -96,18 +96,18 @@ class BurgerBuilder extends Component {
 
     // this method should be triggered when we click the order button
     purchaseHandler = () => {
-        this.setState({purchasing: true});
+        this.setState({ purchasing: true });
     }
 
     purchaseCancelHandler = () => {
-        this.setState({purchasing: false});
+        this.setState({ purchasing: false });
     }
 
     purchaseContinueHandler = () => {
         alert('You continue');
     }
 
-    render () {
+    render() {
         const disabledInfo = {
             // we create a copy if the ingredients
             ...this.state.ingredients
@@ -120,26 +120,27 @@ class BurgerBuilder extends Component {
 
         return (
             <Aux>
-            <Modal show={this.state.purchasing} modalClosed={this.purchaseCancelHandler}>
-                <OderSummary 
-                ingredients={this.state.ingredients}
-                purchaseCanceled={this.purchaseCancelHandler}
-                purchaseContinued={this.purchaseContinueHandler}/>
-            </Modal>
-            <Burger ingredients={this.state.ingredients} />
-            <BuildControls 
-            ingredientAdded={this.addIngredientHandler}
-            // we will now use this method in BuildControls js
-            ingredientRemoved={this.removeIngredientHandler}
-            disabled={disabledInfo}
-            purchasable={this.state.purchasable}
-            // this method will get executed when we click the order now button
-            ordered={this.purchaseHandler}
-            price={this.state.totalPrice}
-            />
+                <Modal show={this.state.purchasing} modalClosed={this.purchaseCancelHandler}>
+                    <OderSummary
+                        ingredients={this.state.ingredients}
+                        price={this.state.totalPrice}
+                        purchaseCanceled={this.purchaseCancelHandler}
+                        purchaseContinued={this.purchaseContinueHandler} />
+                </Modal>
+                <Burger ingredients={this.state.ingredients} />
+                <BuildControls
+                    ingredientAdded={this.addIngredientHandler}
+                    // we will now use this method in BuildControls js
+                    ingredientRemoved={this.removeIngredientHandler}
+                    disabled={disabledInfo}
+                    purchasable={this.state.purchasable}
+                    // this method will get executed when we click the order now button
+                    ordered={this.purchaseHandler}
+                    price={this.state.totalPrice}
+                />
             </Aux>
-            );
-        }
+        );
     }
-    
-    export default BurgerBuilder;
+}
+
+export default BurgerBuilder;
