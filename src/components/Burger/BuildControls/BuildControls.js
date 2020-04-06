@@ -19,6 +19,7 @@ const buildControls = (props) => (
             added={() => props.ingredientAdded(ctrl.type)} 
             // we use the method the property we defined in BurgerBuilder js
             removed={() => props.ingredientRemoved(ctrl.type)} 
+            disabled={props.disabled[ctrl.type]}
             />
         ))}
     </div>
