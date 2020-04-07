@@ -6,7 +6,7 @@ import styles from './SideDrawer.module.css';
 const sideDrawer = (props) => {
     return (
         <div className={styles.SideDrawer}>
-            <div>
+            <div className={styles.Logo}>
                 <Logo />
             </div>
             <nav>
