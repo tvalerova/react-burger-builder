@@ -9,7 +9,7 @@ const sideDrawer = (props) => {
     return (
         <Aux>
             {/* backdrop will alway show since show = true */}
-            <Backdrop show/>
+            <Backdrop show={props.open} clicked={props.closed}/>
             <div className={styles.SideDrawer}>
                 <div className={styles.Logo}>
                     <Logo />
