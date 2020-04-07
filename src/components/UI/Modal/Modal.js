@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import './Modal.css';
-import Aux from '../../../hoc/Aux';
+import Aux from '../../../hoc/Aux/Aux';
 import Backdrop from '../Backdrop/Backdrop';
 
 // the modal will be a component that can be wrapped around any content
