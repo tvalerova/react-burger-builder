@@ -2,7 +2,10 @@ import React, { Component } from 'react';
 import Aux from '../../../hoc/Aux';
 import Button from '../../UI/Button/Button';
 
+// this could be a functional component, we only turned it into a class to be able to use a lifecycle hook
 class OrderSummary extends Component {
+    // we added a Lifecycle hook to show in the console that OderSummary updates everytime we add an ingredient, even though we cannot see the ordersummary
+    // this is not good for performance - we will improve this in Modal.js
     componentWillUpdate() {
         console.log('[OrderSummary] Will Update')
     }
