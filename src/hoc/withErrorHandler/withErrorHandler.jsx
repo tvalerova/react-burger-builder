@@ -10,7 +10,9 @@ const withErrorHandler = (WrappedComponent, axios) => {
             error: null
         }
 
-        componentDidMount() {
+        // this will be called before the children components are rendered
+        // we are not causing side effects, we are just reigstering the interceptors
+        componentWillMount() {
             // when we send a request, we clear any errors we might have
             axios.interceptors.request.use(req => {
                 this.setState({ error: null });
