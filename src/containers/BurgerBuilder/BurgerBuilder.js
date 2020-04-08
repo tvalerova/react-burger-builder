@@ -7,6 +7,7 @@ import Modal from '../../components/UI/Modal/Modal';
 import OderSummary from '../../components/Burger/OrderSummary/OrderSummary';
 import axios from '../../axios-orders';
 import Spinner from '../../components/UI/Spinner/Spinner';
+import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 
 // capital letters - they will be used as global constants
 const INGREDIENT_PRICES = {
@@ -183,5 +184,5 @@ class BurgerBuilder extends Component {
         );
     }
 }
-
-export default BurgerBuilder;
+// the other way of using HOC - we wrap the export with it
+export default withErrorHandler(BurgerBuilder);
