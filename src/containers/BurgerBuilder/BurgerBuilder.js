@@ -5,6 +5,7 @@ import Burger from '../../components/Burger/Burger';
 import BuildControls from '../../components/Burger/BuildControls/BuildControls';
 import Modal from '../../components/UI/Modal/Modal';
 import OderSummary from '../../components/Burger/OrderSummary/OrderSummary';
+import axios from '../../axios-orders';
 
 // capital letters - they will be used as global constants
 const INGREDIENT_PRICES = {
@@ -104,7 +105,27 @@ class BurgerBuilder extends Component {
     }
 
     purchaseContinueHandler = () => {
-        alert('You continue');
+        // alert('You continue');
+        const order = {
+            ingredients: this.state.ingredients,
+            // in a real app this would not be the actual set up - we would recalculate the price on the server
+            price: this.state.totalPrice,
+            // here we just pass some dummy data
+            customer: {
+                name: 'Tereza',
+                address: {
+                    street: 'Oosterstraat 1',
+                    zip: '1211KZ',
+                    country: 'Netherlands'
+                },
+                email: 'Tereza@gmail.com'
+            },
+            deliveryMethod: 'fastest'
+        }
+        // this is the url that gets appended to the base URL; for Firebase to function, we need to add .json as an end point - in a real app it would be something else
+        axios.post('/orders.json', order)
+            .then(response => console.log(response))
+            .catch(error => console.log(error));
     }
 
     render() {
