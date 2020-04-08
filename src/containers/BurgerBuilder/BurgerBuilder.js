@@ -35,7 +35,8 @@ class BurgerBuilder extends Component {
         purchasable: false,
         // we need to know if the order button was clicked
         purchasing: false,
-        loading: false
+        loading: false,
+        error: null
     }
 
     componentDidMount() {
@@ -43,6 +44,9 @@ class BurgerBuilder extends Component {
             .then(response => {
                 this.setState({ ingredients: response.data })
             })
+            .catch(error => {
+                this.setState({error: true})
+            });
     }
 
     updatePurchaseState(ingredients) {
@@ -160,7 +164,8 @@ class BurgerBuilder extends Component {
         let orderSummary = null;
 
         // by default the burger is a spinner for a fraction of a second, until it loads
-        let burger = <Spinner />
+        // if they cannot be loaded we output a message to the user
+        let burger = this.state.error ? <p>Ingredients can't be loaded!</p> : <Spinner />;
        
         // once the ingredients load we will show the burger
         if (this.state.ingredients) {
