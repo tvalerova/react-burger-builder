@@ -10,31 +10,41 @@ const withErrorHandler = (WrappedComponent, axios) => {
             error: null
         }
 
-        componentDidMount () {
+        componentDidMount() {
             // when we send a request, we clear any errors we might have
             axios.interceptors.request.use(req => {
-                this.setState({error: null});
+                this.setState({ error: null });
             })
             // if we get an error we want to display an error
             axios.interceptors.response.use(null, error => {
-                this.setState({error: error});
+                this.setState({ error: error });
             })
+        }
+
+        errorConfirmedHandler = () => {
+            this.setState({ error: null })
         }
 
         render() {
             return (
                 <Aux>
                     {/* we will only show the modal if there is an error */}
-                    <Modal show={this.state.error}>
+                    <Modal
+                        show={this.state.error}
+                        // the modal component exposes the clicked property - when we click the backdrop
+                        // when we click the backdrop, we want to clear the error
+                        clicked={this.errorConfirmedHandler}>
                         {/* there is a message property on the error object returned by Firebase */}
-                        {this.state.error.message}
+                        {/* the modal component is always present, even if we sometimes don't show it 
+                        we add a ternary expression; we will only output it if it is not null */}
+                        {this.state.error ? this.state.error.message : null}
                     </Modal>
                     {/* I want to return the wrappedcomponent and distribute any props this component might receive */}
                     <WrappedComponent {...this.props} />
                 </Aux>
             );
         }
-    }    
+    }
 }
 
 export default withErrorHandler;

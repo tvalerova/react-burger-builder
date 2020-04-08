@@ -185,4 +185,4 @@ class BurgerBuilder extends Component {
     }
 }
 // the other way of using HOC - we wrap the export with it
-export default withErrorHandler(BurgerBuilder);
+export default withErrorHandler(BurgerBuilder, axios);
