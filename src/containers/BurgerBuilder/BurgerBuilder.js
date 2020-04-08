@@ -107,6 +107,9 @@ class BurgerBuilder extends Component {
 
     purchaseContinueHandler = () => {
         // alert('You continue');
+
+        this.setState({loading: true});
+
         const order = {
             ingredients: this.state.ingredients,
             // in a real app this would not be the actual set up - we would recalculate the price on the server
@@ -125,8 +128,16 @@ class BurgerBuilder extends Component {
         }
         // this is the url that gets appended to the base URL; for Firebase to function, we need to add .json as an end point - in a real app it would be something else
         axios.post('/orders.json', order)
-            .then(response => console.log(response))
-            .catch(error => console.log(error));
+            .then(response => {
+                // once we have a response, we want to stop loading
+                // to close the modal after the response, we set purchasing to false
+                this.setState({ loading: false, purchasing: false });
+            } )
+            .catch(error => {
+                // we also want to stop loading if we have an error
+                // to close the modal after the response, we set purchasing to false
+                this.setState({ loading: false, purchasing: false });
+            });
     }
 
     render() {
