@@ -27,18 +27,22 @@ class BurgerBuilder extends Component {
     // }
 
     state = {
-        ingredients: {
-            salad: 0,
-            bacon: 0,
-            cheese: 0,
-            meat: 0
-        },
+        // we removed the ingredients object we had previously and set it to null, because we will fetch the ingredients from Firebase
+        ingredients: null,
         // base price for a burger regardless of the ingredients is 4 
         totalPrice: 4,
         // will turn true if at least one ingredient has been added to the order
         purchasable: false,
         // we need to know if the order button was clicked
-        purchasing: false
+        purchasing: false, 
+        loading: false
+    }
+
+    componentDidMount () {
+        axios.get('https://react-my-burger-125ab.firebaseio.com/ingredients.json')
+        .then(response => {
+            this.setState({ingredients: response.data})
+        })
     }
 
     updatePurchaseState(ingredients) {
@@ -185,4 +189,5 @@ class BurgerBuilder extends Component {
     }
 }
 // the other way of using HOC - we wrap the export with it
+// because we have two arguments in the HOC, we need to have two args here as well
 export default withErrorHandler(BurgerBuilder, axios);
