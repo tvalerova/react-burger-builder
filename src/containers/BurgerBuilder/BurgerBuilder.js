@@ -6,6 +6,7 @@ import BuildControls from '../../components/Burger/BuildControls/BuildControls';
 import Modal from '../../components/UI/Modal/Modal';
 import OderSummary from '../../components/Burger/OrderSummary/OrderSummary';
 import axios from '../../axios-orders';
+import Spinner from '../../components/UI/Spinner/Spinner';
 
 // capital letters - they will be used as global constants
 const INGREDIENT_PRICES = {
@@ -138,15 +139,23 @@ class BurgerBuilder extends Component {
             // if the count of that ingredient is 0 or smaller, this will be set to true
             disabledInfo[key] = disabledInfo[key] <= 0
         }
+        // we moved the OrderSummary tag in here from inside the <Modal>
+        // if the state is loading we want to show the spinner instead of OrderSummary
+        let orderSummary = <OderSummary
+            ingredients={this.state.ingredients}
+            price={this.state.totalPrice}
+            purchaseCanceled={this.purchaseCancelHandler}
+            purchaseContinued={this.purchaseContinueHandler} />
+        
+            if (this.state.loading) {
+                orderSummary = <Spinner />;
+        }
 
         return (
             <Aux>
                 <Modal show={this.state.purchasing} modalClosed={this.purchaseCancelHandler}>
-                    <OderSummary
-                        ingredients={this.state.ingredients}
-                        price={this.state.totalPrice}
-                        purchaseCanceled={this.purchaseCancelHandler}
-                        purchaseContinued={this.purchaseContinueHandler} />
+                    {/* we output the orderSummary dynamically, it was defined above */}
+                    {orderSummary}
                 </Modal>
                 <Burger ingredients={this.state.ingredients} />
                 <BuildControls
