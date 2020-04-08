@@ -34,15 +34,15 @@ class BurgerBuilder extends Component {
         // will turn true if at least one ingredient has been added to the order
         purchasable: false,
         // we need to know if the order button was clicked
-        purchasing: false, 
+        purchasing: false,
         loading: false
     }
 
-    componentDidMount () {
+    componentDidMount() {
         axios.get('https://react-my-burger-125ab.firebaseio.com/ingredients.json')
-        .then(response => {
-            this.setState({ingredients: response.data})
-        })
+            .then(response => {
+                this.setState({ ingredients: response.data })
+            })
     }
 
     updatePurchaseState(ingredients) {
@@ -113,7 +113,7 @@ class BurgerBuilder extends Component {
     purchaseContinueHandler = () => {
         // alert('You continue');
 
-        this.setState({loading: true});
+        this.setState({ loading: true });
 
         const order = {
             ingredients: this.state.ingredients,
@@ -137,7 +137,7 @@ class BurgerBuilder extends Component {
                 // once we have a response, we want to stop loading
                 // to close the modal after the response, we set purchasing to false
                 this.setState({ loading: false, purchasing: false });
-            } )
+            })
             .catch(error => {
                 // we also want to stop loading if we have an error
                 // to close the modal after the response, we set purchasing to false
@@ -155,16 +155,40 @@ class BurgerBuilder extends Component {
             // if the count of that ingredient is 0 or smaller, this will be set to true
             disabledInfo[key] = disabledInfo[key] <= 0
         }
-        // we moved the OrderSummary tag in here from inside the <Modal>
-        // if the state is loading we want to show the spinner instead of OrderSummary
-        let orderSummary = <OderSummary
-            ingredients={this.state.ingredients}
-            price={this.state.totalPrice}
-            purchaseCanceled={this.purchaseCancelHandler}
-            purchaseContinued={this.purchaseContinueHandler} />
-        
-            if (this.state.loading) {
-                orderSummary = <Spinner />;
+
+        // we start with the order summary of null at the beginning
+        let orderSummary = null;
+
+        // by default the burger is a spinner for a fraction of a second, until it loads
+        let burger = <Spinner />
+       
+        // once the ingredients load we will show the burger
+        if (this.state.ingredients) {
+            burger = (
+                <Aux>
+                    <Burger ingredients={this.state.ingredients} />
+                    <BuildControls
+                        ingredientAdded={this.addIngredientHandler}
+                        // we will now use this method in BuildControls js
+                        ingredientRemoved={this.removeIngredientHandler}
+                        disabled={disabledInfo}
+                        purchasable={this.state.purchasable}
+                        // this method will get executed when we click the order now button
+                        ordered={this.purchaseHandler}
+                        price={this.state.totalPrice} />
+                </Aux>
+            );
+            // we moved the OrderSummary tag in here from inside the <Modal>
+            // if the state is loading we want to show the spinner instead of OrderSummary
+            orderSummary = <OderSummary
+                ingredients={this.state.ingredients}
+                price={this.state.totalPrice}
+                purchaseCanceled={this.purchaseCancelHandler}
+                purchaseContinued={this.purchaseContinueHandler} />;
+        }
+        // if the state is loading, show spinner
+        if (this.state.loading) {
+            orderSummary = <Spinner />;
         }
 
         return (
@@ -173,17 +197,8 @@ class BurgerBuilder extends Component {
                     {/* we output the orderSummary dynamically, it was defined above */}
                     {orderSummary}
                 </Modal>
-                <Burger ingredients={this.state.ingredients} />
-                <BuildControls
-                    ingredientAdded={this.addIngredientHandler}
-                    // we will now use this method in BuildControls js
-                    ingredientRemoved={this.removeIngredientHandler}
-                    disabled={disabledInfo}
-                    purchasable={this.state.purchasable}
-                    // this method will get executed when we click the order now button
-                    ordered={this.purchaseHandler}
-                    price={this.state.totalPrice}
-                />
+                {/* we output burger dynamically */}
+                {burger}
             </Aux>
         );
     }
