@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import Modal from '../../components/UI/Modal/Modal';
 import Aux from '../Aux/Aux';
 
+// the problem is that if we add this hoc with error handler to other components
+// we will call componentWillMount again and again - it is called everytime withErrorHandler is wrapped around a component
+// we should therefore remove the interceptors after the component unmounts
+
 const withErrorHandler = (WrappedComponent, axios) => {
     // we will change this component from functional to class based, so we can use a lifecycle hook here and axios interceptors
     // this is an anonymous class because we never use that class, it's a class factory - withErrorHandler creates these classes
@@ -14,14 +18,20 @@ const withErrorHandler = (WrappedComponent, axios) => {
         // we are not causing side effects, we are just reigstering the interceptors
         componentWillMount() {
             // when we send a request, we clear any errors we might have
-            axios.interceptors.request.use(req => {
+            this.reqInterceptor = axios.interceptors.request.use(req => {
                 this.setState({ error: null });
                 return req;
             })
             // if we get an error we want to display an error
-            axios.interceptors.response.use(res => res, error => {
+            this.resInterceptor = axios.interceptors.response.use(res => res, error => {
                 this.setState({ error: error });
             })
+        }
+
+        // this will remove the interceptors when the component unmounts - goog for memory optimization
+        componentWillUnmount() {
+            axios.interceptors.request.eject(this.reqInterceptor);
+            axios.interceptors.response.eject(this.resInterceptor);
         }
 
         errorConfirmedHandler = () => {
