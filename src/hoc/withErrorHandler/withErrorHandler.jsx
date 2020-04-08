@@ -14,9 +14,10 @@ const withErrorHandler = (WrappedComponent, axios) => {
             // when we send a request, we clear any errors we might have
             axios.interceptors.request.use(req => {
                 this.setState({ error: null });
+                return req;
             })
             // if we get an error we want to display an error
-            axios.interceptors.response.use(null, error => {
+            axios.interceptors.response.use(res => res, error => {
                 this.setState({ error: error });
             })
         }
@@ -33,7 +34,7 @@ const withErrorHandler = (WrappedComponent, axios) => {
                         show={this.state.error}
                         // the modal component exposes the clicked property - when we click the backdrop
                         // when we click the backdrop, we want to clear the error
-                        clicked={this.errorConfirmedHandler}>
+                        modalClosed={this.errorConfirmedHandler}>
                         {/* there is a message property on the error object returned by Firebase */}
                         {/* the modal component is always present, even if we sometimes don't show it 
                         we add a ternary expression; we will only output it if it is not null */}
