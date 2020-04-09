@@ -147,6 +147,7 @@ class BurgerBuilder extends Component {
         //         // to close the modal after the response, we set purchasing to false
         //         this.setState({ loading: false, purchasing: false });
         //     });
+        this.props.history.push('/checkout');
     }
 
     render() {
