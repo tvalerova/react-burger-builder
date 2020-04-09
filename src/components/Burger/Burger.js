@@ -1,4 +1,5 @@
 import React from 'react';
+// we are doing this just to show that it is possible to have access to the same props as in routed components
 import {withRouter} from 'react-router-dom';
 
 import './Burger.css';
@@ -24,12 +25,12 @@ const burger = (props) => {
 
     // if no ingredients have been added, we display this message
     if (transformedIngredients.length === 0) {
-        transformedIngredients = < p > Please start adding ingredients! < /p>;
+        transformedIngredients = <p> Please start adding ingredients! </p>;
     }
     return ( 
         <div className = 'Burger' >
-        <BurgerIngredient type = "bread-top" / > { transformedIngredients } 
-        <BurgerIngredient type = "bread-bottom" / >
+        <BurgerIngredient type = "bread-top" /> { transformedIngredients } 
+        <BurgerIngredient type = "bread-bottom" />
         </div>
     );
 };
