@@ -17,10 +17,10 @@ class ContactData extends Component {
             <div className='ContactData' >
                 <h4>Contact Information</h4>
                 <form>
-                    <input type="text" name="name" placeholder="Your name" />
-                    <input type="email" name="email" placeholder="Your email" />
-                    <input type="text" name="street" placeholder="Street name" />
-                    <input type="text" name="zipcode" placeholder="Zipcode" />
+                    <input className='Input' type="text" name="name" placeholder="Your name" />
+                    <input className='Input' type="email" name="email" placeholder="Your email" />
+                    <input className='Input' type="text" name="street" placeholder="Street name" />
+                    <input className='Input' type="text" name="zipcode" placeholder="Zipcode" />
                     <Button btnType="Success">ORDER</Button>
                 </form>
             </div>
