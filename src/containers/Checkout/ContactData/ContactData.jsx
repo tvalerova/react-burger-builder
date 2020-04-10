@@ -121,19 +121,23 @@ class ContactData extends Component {
     }
 
     checkValidity(value, rules) {
-        let isValid = false;
+        // if we set this variable to false and don't include the && isValid in each of the ifstatements,
+        // the validations will not work correctly - it checks one if statement after another, not all of them together,
+        // so even when we typed in a 3-digit zipcode, it showed true in the cosole, because the last ifstatement evaluated to true
+        // while it should be false because the zipcode should be 5 digits long
+        let isValid = true;
 
         if (rules.required) {
             // trim will remove whitespaces; if value is not empty then isValid = true
-            isValid = value.trim() !=='';
+            isValid = value.trim() !=='' && isValid;
         }
         // for zipcode validation
         if (rules.minLength) {
-            isValid = value.length >= rules.minLength
+            isValid = value.length >= rules.minLength && isValid
         }
 
         if (rules.maxLength) {
-            isValid = value.length <= rules.maxLength
+            isValid = value.length <= rules.maxLength && isValid
         }
 
         // will return true or false
