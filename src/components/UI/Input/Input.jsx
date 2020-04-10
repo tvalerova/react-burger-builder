@@ -5,18 +5,25 @@ const input = (props) => {
 
     let inputElement = null;
 
+    const inputClasses = ['InputElement'];
+
+    // if the input is not valid, we will add a new class to our classes array
+    if (props.invalid) {
+        inputClasses.push('Invalid');
+    }
+
     // we create the form inputs dynamically
     switch (props.elementType) {
         case ('input'):
             inputElement = <input
-                className='InputElement'
+                className={inputClasses.join(' ')}
                 {...props.elementConfig}
                 value={props.value}
                 onChange={props.changed} />;
             break;
         case ('textarea'):
             inputElement = <textarea
-                className='InputElement'
+                className={inputClasses.join(' ')}
                 {...props.elementConfig}
                 value={props.value}
                 onChange={props.changed} />;
@@ -24,10 +31,10 @@ const input = (props) => {
         case ('select'):
             inputElement = (
                 <select
-                    className='InputElement'
+                    className={inputClasses.join(' ')}
                     value={props.value}
                     onChange={props.changed}>
-                        {/* we output the options in the dropdown menu dynamically */}
+                    {/* we output the options in the dropdown menu dynamically */}
                     {props.elementConfig.options.map(option => (
                         <option key={option.value} value={option.value}>
                             {Option.displayValue}
@@ -38,7 +45,7 @@ const input = (props) => {
             break;
         default:
             inputElement = <input
-                className='InputElement'
+                className={inputClasses.join(' ')}
                 {...props.elementConfig}
                 value={props.value}
                 onChange={props.changed} />;
