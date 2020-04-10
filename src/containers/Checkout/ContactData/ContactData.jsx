@@ -8,8 +8,14 @@ class ContactData extends Component {
         email: '',
         address: {
             street: '',
-            postalCode: ''
+            zipcode: ''
         }
+    }
+
+    orderHandler = (event) => {
+        // we don't want to send the request because it reloads our form
+        event.preventDefault();
+        console.log(this.props.ingredients);
     }
 
     render () {
@@ -21,7 +27,7 @@ class ContactData extends Component {
                     <input className='Input' type="email" name="email" placeholder="Your email" />
                     <input className='Input' type="text" name="street" placeholder="Street name" />
                     <input className='Input' type="text" name="zipcode" placeholder="Zipcode" />
-                    <Button btnType="Success">ORDER</Button>
+                    <Button btnType="Success" clicked={this.orderHandler} >ORDER</Button>
                 </form>
             </div>
         );

@@ -45,7 +45,10 @@ class Checkout extends Component {
                     ingredients={this.state.ingredients}
                     checkoutCanceled={this.checkoutCanceledHandler}
                     checkoutContinued={this.checkoutContinuedHandler} />
-                <Route path={this.props.match.path + '/contact-data'} component={ContactData} />
+                <Route 
+                path={this.props.match.path + '/contact-data'} 
+                // when we pass the ContacData into render and not as component, we can pass props to it
+                render={() => (<ContactData ingredients={this.state.ingredients} />)} />
             </div>
         )
     }
