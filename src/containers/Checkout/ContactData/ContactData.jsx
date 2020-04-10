@@ -9,13 +9,43 @@ class ContactData extends Component {
         address: {
             street: '',
             zipcode: ''
-        }
+        },
+        loading: false
     }
 
     orderHandler = (event) => {
         // we don't want to send the request because it reloads our form
         event.preventDefault();
-        console.log(this.props.ingredients);
+        this.setState({ loading: true });
+
+        const order = {
+            ingredients: this.props.ingredients,
+            // in a real app this would not be the actual set up - we would recalculate the price on the server
+            price: this.state.totalPrice,
+            // here we just pass some dummy data
+            customer: {
+                name: 'Tereza',
+                address: {
+                    street: 'Oosterstraat 1',
+                    zip: '1211KZ',
+                    country: 'Netherlands'
+                },
+                email: 'Tereza@gmail.com'
+            },
+            deliveryMethod: 'fastest'
+        }
+        // this is the url that gets appended to the base URL; for Firebase to function, we need to add .json as an end point - in a real app it would be something else
+        axios.post('/orders.json', order)
+            .then(response => {
+                // once we have a response, we want to stop loading
+                // to close the modal after the response, we set purchasing to false
+                this.setState({ loading: false, purchasing: false });
+            })
+            .catch(error => {
+                // we also want to stop loading if we have an error
+                // to close the modal after the response, we set purchasing to false
+                this.setState({ loading: false, purchasing: false });
+            });
     }
 
     render () {
