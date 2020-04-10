@@ -42,6 +42,8 @@ class ContactData extends Component {
                 // once we have a response, we want to stop loading
                 // to close the modal after the response, we set purchasing to false
                 this.setState({ loading: false });
+                // once we clicked Order we will be redirected back to home page
+                this.props.history.push('/');
             })
             .catch(error => {
                 // we also want to stop loading if we have an error
