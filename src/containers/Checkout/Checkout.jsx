@@ -57,11 +57,11 @@ class Checkout extends Component {
                 <Route 
                 path={this.props.match.path + '/contact-data'} 
                 // when we pass the ContacData into render and not as component, we can pass props to it
-                render={(props) => (<ContactData ingredients={this.state.ingredients} />)} 
+                render={(props) => (<ContactData ingredients={this.state.ingredients}
                 // because we are rendering the contact data component manually and not through the component prop
                 // we don't have access to the props objects such as history and location - we therefore passed it to render
                 // and distribute the with the spread operator - then the push method in ContactData will work and after clicking Order we will be redirected to homepage
-                price={this.state.totalPrice} {...props}/>
+                price={this.state.totalPrice} {...props} />)} />
             </div>
         )
     }
