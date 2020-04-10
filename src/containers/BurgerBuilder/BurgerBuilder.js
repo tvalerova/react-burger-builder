@@ -147,7 +147,20 @@ class BurgerBuilder extends Component {
         //         // to close the modal after the response, we set purchasing to false
         //         this.setState({ loading: false, purchasing: false });
         //     });
-        this.props.history.push('/checkout');
+
+        const queryParams = [];
+        // we iterate over the ingredients to push them into the url
+        for (let i in this.state.ingredients) {
+            // encodeURIComponent encodes my elements in a way that they can be used in the URL
+            queryParams.push(encodeURIComponent(i) + '=' + encodeURIComponent(this.state.ingredients[i]));
+        }
+        
+        const queryString = queryParams.join('&');
+
+        this.props.history.push({
+            pathname: '/checkout',
+            search: '?' + queryString
+        });
     }
 
     render() {
