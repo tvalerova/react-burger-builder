@@ -67,11 +67,19 @@ class ContactData extends Component {
         event.preventDefault();
         this.setState({ loading: true });
 
+        // this is where we get the data from the form
+        const formData = {};
+        // the identifier here is country, email, etc.
+        for (let formElementIdentifier in this.state.orderForm) {
+            // here we create key-value pairs - the formElementIdentifier (such as country) = use input value from the form in the corresponding field
+            formData[formElementIdentifier] = this.state.orderForm[formElementIdentifier].value;
+        }
+
         const order = {
             ingredients: this.props.ingredients,
             // in a real app this would not be the actual set up - we would recalculate the price on the server
             price: this.props.price,
-            // here we just pass some dummy data
+            orderData: formData
 
         }
         // this is the url that gets appended to the base URL; for Firebase to function, we need to add .json as an end point - in a real app it would be something else
@@ -121,7 +129,7 @@ class ContactData extends Component {
         }
 
         let form = (
-            <form>
+            <form onSubmit={this.orderHandler}>
                 {formElementsArray.map(formElement => (
                     <Input
                         key={formElement.id}
@@ -132,7 +140,7 @@ class ContactData extends Component {
                         changed={(event) => this.inputChangedHandler(event, formElement.id)}
                     />
                 ))}
-                <Button btnType="Success" clicked={this.orderHandler} >ORDER</Button>
+                <Button btnType="Success">ORDER</Button>
             </form>
         );
         if (this.state.loading) {
