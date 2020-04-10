@@ -92,12 +92,26 @@ class ContactData extends Component {
 
     // we set up a spinner first when it's loading, then the form
     render() {
+
+        const formElementsArray = [];
+        // we covert the oderForm object into an array
+        for (let key in this.state.orderForm) {
+            formElementsArray.push({
+                id: key,
+                config: this.state.orderForm[key]
+            });
+        }
+
         let form = (
             <form>
-                <Input elementType='...' elementType='...' value='...' />
-                <Input />
-                <Input />
-                <Input />
+                {formElementsArray.map(formElement => (
+                    <Input
+                        key={formElement.id}
+                        elementType={formElement.config.elementType}
+                        elementConfig={formElement.config.elementConfig}
+                        value={formElement.config.value}
+                    />
+                ))}
                 <Button btnType="Success" clicked={this.orderHandler} >ORDER</Button>
             </form>
         );
