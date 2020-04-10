@@ -19,14 +19,23 @@ class Checkout extends Component {
         const query = new URLSearchParams(this.props.location.search);
         // a new object to store the chosen ingredients
         const ingredients = {};
+        let price = 0;
         // we loop through the different query params
         for (let param of query.entries()) {
-            // this will be the format ['salad', '1']
-            // again we set up the key = value, and convert the value into a number with +
-            ingredients[param[0]] = +param[1];
+            // total price is not an ingredient, so we should not push it into the ingredients array
+            // we check if the first param is price
+            if (param[0] === 'price') {
+                // we will store the price in the variable
+                price = param[1];
+                // if price is not the first param we push the param into ingredients
+            } else {
+                // this will be the format ['salad', '1']; again we set up the key = value, and convert the value into a number with +
+                ingredients[param[0]] = +param[1];
+            }
+            
         }
         // we set the state of the ingredients to the ingredients object we just created
-        this.setState({ ingredients: ingredients });
+        this.setState({ ingredients: ingredients, totalPrice: price });
     }
 
     checkoutCanceledHandler = () => {
@@ -48,7 +57,8 @@ class Checkout extends Component {
                 <Route 
                 path={this.props.match.path + '/contact-data'} 
                 // when we pass the ContacData into render and not as component, we can pass props to it
-                render={() => (<ContactData ingredients={this.state.ingredients} />)} />
+                render={() => (<ContactData ingredients={this.state.ingredients} />)} 
+                price={this.state.totalPrice} />
             </div>
         )
     }
