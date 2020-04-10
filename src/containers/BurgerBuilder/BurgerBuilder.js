@@ -148,17 +148,24 @@ class BurgerBuilder extends Component {
         //         this.setState({ loading: false, purchasing: false });
         //     });
 
+
+        // we will pass the real ingredients we picked onto the checkout container
+        
         const queryParams = [];
-        // we iterate over the ingredients to push them into the url
+        // we iterate over the ingredients we have to push them into the array
         for (let i in this.state.ingredients) {
-            // encodeURIComponent encodes my elements in a way that they can be used in the URL
+            // encodeURIComponent encodes my elements in a way that they can be used in the URL and then passed to the search
+            // we are basically setting the key=0, such as salad=0
             queryParams.push(encodeURIComponent(i) + '=' + encodeURIComponent(this.state.ingredients[i]));
         }
         
+        // this is what we want to get: bacon=1&cheese=1&meat=1&salad=0
         const queryString = queryParams.join('&');
 
         this.props.history.push({
             pathname: '/checkout',
+            // search is where we pass the ingredients
+            // this will be the result after the root path: /checkout?bacon=1&cheese=1&meat=1&salad=0
             search: '?' + queryString
         });
     }
