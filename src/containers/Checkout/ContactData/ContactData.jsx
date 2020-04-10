@@ -133,11 +133,11 @@ class ContactData extends Component {
         }
         // for zipcode validation
         if (rules.minLength) {
-            isValid = value.length >= rules.minLength && isValid
+            isValid = value.length >= rules.minLength && isValid;
         }
 
         if (rules.maxLength) {
-            isValid = value.length <= rules.maxLength && isValid
+            isValid = value.length >= rules.maxLength && isValid;
         }
 
         // will return true or false
@@ -184,6 +184,9 @@ class ContactData extends Component {
                         elementType={formElement.config.elementType}
                         elementConfig={formElement.config.elementConfig}
                         value={formElement.config.value}
+                        invalid={!formElement.config.valid}
+                        // if we did not set up a validation on an input, this will be false - the red class will therefore not be implemented on it
+                        shouldValidate={formElement.config.validation}
                         // the id here is the key from out objects
                         changed={(event) => this.inputChangedHandler(event, formElement.id)}
                     />

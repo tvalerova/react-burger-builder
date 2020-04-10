@@ -8,7 +8,7 @@ const input = (props) => {
     const inputClasses = ['InputElement'];
 
     // if the input is not valid, we will add a new class to our classes array
-    if (props.invalid) {
+    if (props.invalid && props.shouldValidate) {
         inputClasses.push('Invalid');
     }
 
