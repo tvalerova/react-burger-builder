@@ -90,6 +90,24 @@ class ContactData extends Component {
             });
     }
 
+    // here we set up two-way binding: we input something into the input field and it updates in the form
+    inputChangedHandler = (event, inputIdentifier) => {
+        const updatedOrderForm = {
+            // we create a copy of the orderForm object to not change the original one
+            ...this.state.orderForm
+        }
+        // because we have nested objects in the orderForm, they won't get copied deeply = if we make changes to some of the nested elements, we are still mutating the originals, they are not copies
+        // we therefore use the spread operator one more time to make copies of the nested elements as well = we cloned it deeply
+        const updatedFormElement = {
+            ...updatedOrderForm[inputIdentifier]
+        };
+        // here we set the value of updatedFormElement to value of the user input
+        updatedFormElement.value = event.target.value;
+        // we access the inputIdentifier in the updatedOrderForm and set it to the updatedFormElement
+        updatedOrderForm[inputIdentifier] = updatedFormElement;
+        this.setState({ orderForm: updatedOrderForm });
+    }
+
     // we set up a spinner first when it's loading, then the form
     render() {
 
@@ -110,6 +128,8 @@ class ContactData extends Component {
                         elementType={formElement.config.elementType}
                         elementConfig={formElement.config.elementConfig}
                         value={formElement.config.value}
+                        // the id here is the key from out objects
+                        changed={(event) => this.inputChangedHandler(event, formElement.id)}
                     />
                 ))}
                 <Button btnType="Success" clicked={this.orderHandler} >ORDER</Button>
