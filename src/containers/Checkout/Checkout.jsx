@@ -14,7 +14,7 @@ class Checkout extends Component {
     }
 
     // here we need to pass the query to the checkout component, so we have the information about the ordered burger
-    componentDidMount() {
+    componentWillMount() {
         // we need to extract the query params
         const query = new URLSearchParams(this.props.location.search);
         // a new object to store the chosen ingredients

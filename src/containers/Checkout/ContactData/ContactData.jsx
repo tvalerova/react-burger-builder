@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Button from '../../../components/UI/Button/Button';
 import './ContactData.css';
+import axios from '../../../axios-orders';
 
 class ContactData extends Component {
     state = {
@@ -21,7 +22,7 @@ class ContactData extends Component {
         const order = {
             ingredients: this.props.ingredients,
             // in a real app this would not be the actual set up - we would recalculate the price on the server
-            price: this.state.totalPrice,
+            price: this.props.price,
             // here we just pass some dummy data
             customer: {
                 name: 'Tereza',
@@ -39,12 +40,12 @@ class ContactData extends Component {
             .then(response => {
                 // once we have a response, we want to stop loading
                 // to close the modal after the response, we set purchasing to false
-                this.setState({ loading: false, purchasing: false });
+                this.setState({ loading: false });
             })
             .catch(error => {
                 // we also want to stop loading if we have an error
                 // to close the modal after the response, we set purchasing to false
-                this.setState({ loading: false, purchasing: false });
+                this.setState({ loading: false });
             });
     }
 
