@@ -7,11 +7,57 @@ import Input from '../../../components/UI/Input/Input';
 
 class ContactData extends Component {
     state = {
-        name: '',
-        email: '',
-        address: {
-            street: '',
-            zipcode: ''
+        orderForm: {
+            name: {
+                elementType: 'input',
+                elementConfig: {
+                    type: 'text',
+                    placeholder: 'Your Name'
+                },
+                value: ''
+            },
+            street: {
+                elementType: 'input',
+                elementConfig: {
+                    type: 'text',
+                    placeholder: 'Street'
+                },
+                value: ''
+            },
+            zip: {
+                elementType: 'input',
+                elementConfig: {
+                    type: 'text',
+                    placeholder: 'Zipcode'
+                },
+                value: ''
+            },
+            country: {
+                elementType: 'input',
+                elementConfig: {
+                    type: 'text',
+                    placeholder: 'Country'
+                },
+                value: ''
+            },
+            email: {
+                elementType: 'input',
+                elementConfig: {
+                    type: 'email',
+                    placeholder: 'Email'
+                },
+                value: ''
+            },
+            deliveryMethod: {
+                elementType: 'select',
+                elementConfig: {
+                    options: [
+                        { value: 'fastest', display: 'Fastest' },
+                        { value: 'cheapest', display: 'Cheapest' }
+                    ]
+                },
+                value: ''
+            }
         },
         loading: false
     }
@@ -26,16 +72,7 @@ class ContactData extends Component {
             // in a real app this would not be the actual set up - we would recalculate the price on the server
             price: this.props.price,
             // here we just pass some dummy data
-            customer: {
-                name: 'Tereza',
-                address: {
-                    street: 'Oosterstraat 1',
-                    zip: '1211KZ',
-                    country: 'Netherlands'
-                },
-                email: 'Tereza@gmail.com'
-            },
-            deliveryMethod: 'fastest'
+
         }
         // this is the url that gets appended to the base URL; for Firebase to function, we need to add .json as an end point - in a real app it would be something else
         axios.post('/orders.json', order)
