@@ -123,7 +123,8 @@ class BurgerBuilder extends Component {
             // we are basically setting the key=0, such as salad=0
             queryParams.push(encodeURIComponent(i) + '=' + encodeURIComponent(this.state.ingredients[i]));
         }
-        
+        // we also want to pass the price with the params
+        queryParams.push('price=' + this.state.totalPrice);
         // this is what we want to get: bacon=1&cheese=1&meat=1&salad=0
         const queryString = queryParams.join('&');
 
