@@ -43,7 +43,7 @@ const input = (props) => {
                     {/* we output the options in the dropdown menu dynamically */}
                     {props.elementConfig.options.map(option => (
                         <option key={option.value} value={option.value}>
-                            {Option.displayValue}
+                            {option.displayValue}
                         </option>
                     ))}
                 </select>

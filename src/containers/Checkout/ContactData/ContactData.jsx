@@ -155,7 +155,7 @@ class ContactData extends Component {
         const updatedOrderForm = {
             // we create a copy of the orderForm object to not change the original one
             ...this.state.orderForm
-        }
+        };
         // because we have nested objects in the orderForm, they won't get copied deeply = if we make changes to some of the nested elements, we are still mutating the originals, they are not copies
         // we therefore use the spread operator one more time to make copies of the nested elements as well = we cloned it deeply
         const updatedFormElement = {
