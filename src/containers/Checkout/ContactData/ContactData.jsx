@@ -84,6 +84,9 @@ class ContactData extends Component {
                     ]
                 },
                 value: '',
+                // we need to add this even though we do not require validation for the dropdown
+                // this fixes the error we had when we selected something from the dropdown - because it did not have the validation property, the rules check did not work in the if statement
+                validation: {},
                 // even though we will select one of the two options, and one will be selected for us by default, we need to add the valid property here
                 // because where set formIsValid to true or false, we loop trough the elements and they have to be valid
                 // without adding the valid property here, the dropdown will evaluate to udefined which will will be treated as false, so the whole form would be invalid
