@@ -87,6 +87,7 @@ class ContactData extends Component {
                 valid: true
             }
         },
+        formIsValid: false,
         loading: false
     }
 
@@ -169,7 +170,15 @@ class ContactData extends Component {
         updatedFormElement.touched = true;
         // we access the inputIdentifier in the updatedOrderForm and set it to the updatedFormElement
         updatedOrderForm[inputIdentifier] = updatedFormElement;
-        this.setState({ orderForm: updatedOrderForm });
+        
+        let formIsValid = true;
+        // we are looping through all the elements in the form
+        for (let inputIdentifier in updatedOrderForm) {
+            // if that given element is true && is the form valid true - only if both are true, formIsValid will be updated to true
+            formIsValid = updatedOrderForm[inputIdentifier].valid && formIsValid;
+        }
+        // formIsValid - left side refers to the property set up in the state, right side refers to the variable set up a few lines above
+        this.setState({ orderForm: updatedOrderForm, formIsValid: formIsValid });
     }
 
     // we set up a spinner first when it's loading, then the form
@@ -200,7 +209,8 @@ class ContactData extends Component {
                         changed={(event) => this.inputChangedHandler(event, formElement.id)}
                     />
                 ))}
-                <Button btnType="Success">ORDER</Button>
+                {/* if the form is not valid this button should be disabled */}
+                <Button btnType="Success" disabled={!this.state.formIsValid} >ORDER</Button>
             </form>
         );
         if (this.state.loading) {
