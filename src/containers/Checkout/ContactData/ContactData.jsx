@@ -18,7 +18,8 @@ class ContactData extends Component {
                 validation: {
                     required: true
                 },
-                valid: false
+                valid: false,
+                touched: false
             },
             street: {
                 elementType: 'input',
@@ -30,7 +31,8 @@ class ContactData extends Component {
                 validation: {
                     required: true
                 },
-                valid: false
+                valid: false,
+                touched: false
             },
             zip: {
                 elementType: 'input',
@@ -44,7 +46,8 @@ class ContactData extends Component {
                     minLength: 5,
                     maxLength: 5
                 },
-                valid: false
+                valid: false,
+                touched: false
             },
             country: {
                 elementType: 'input',
@@ -56,7 +59,8 @@ class ContactData extends Component {
                 validation: {
                     required: true
                 },
-                valid: false
+                valid: false,
+                touched: false
             },
             email: {
                 elementType: 'input',
@@ -68,7 +72,8 @@ class ContactData extends Component {
                 validation: {
                     required: true
                 },
-                valid: false
+                valid: false,
+                touched: false
             },
             deliveryMethod: {
                 elementType: 'select',
@@ -159,6 +164,8 @@ class ContactData extends Component {
         updatedFormElement.value = event.target.value;
         // we want to update the valid value; we pass two args to checkValidity - the value from the user input, and the rule from the object
         updatedFormElement.valid = this.checkValidity(updatedFormElement.value, updatedFormElement.validation);
+        // once user typed something, we set touched to true
+        updatedFormElement.touched = true;
         // we access the inputIdentifier in the updatedOrderForm and set it to the updatedFormElement
         updatedOrderForm[inputIdentifier] = updatedFormElement;
         this.setState({ orderForm: updatedOrderForm });
@@ -187,6 +194,7 @@ class ContactData extends Component {
                         invalid={!formElement.config.valid}
                         // if we did not set up a validation on an input, this will be false - the red class will therefore not be implemented on it
                         shouldValidate={formElement.config.validation}
+                        touched={formElement.config.touched}
                         // the id here is the key from out objects
                         changed={(event) => this.inputChangedHandler(event, formElement.id)}
                     />
