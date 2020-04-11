@@ -7,9 +7,15 @@ const input = (props) => {
 
     const inputClasses = ['InputElement'];
 
+    // we can add an error message conditionally
+    let validationError = null;
+
     // if the input is not valid, we will add a new class to our classes array
-    if (props.invalid && props.shouldValidate) {
+    // we only want to make the class invalid if the user started typing into the field - otherwise everything is red right away
+    if (props.invalid && props.shouldValidate && props.touched) {
         inputClasses.push('Invalid');
+        // if input is not valid, we will see this error message
+        validationError = <p>Please enter a valid value</p>;
     }
 
     // we create the form inputs dynamically
@@ -55,6 +61,8 @@ const input = (props) => {
         <div className='Input' >
             <label className='Label' >{props.label}</label>
             {inputElement}
+            {/* output error message - condition set on top in this file */}
+            {validationError}
         </div>
     );
 };
