@@ -84,6 +84,9 @@ class ContactData extends Component {
                     ]
                 },
                 value: '',
+                // even though we will select one of the two options, and one will be selected for us by default, we need to add the valid property here
+                // because where set formIsValid to true or false, we loop trough the elements and they have to be valid
+                // without adding the valid property here, the dropdown will evaluate to udefined which will will be treated as false, so the whole form would be invalid
                 valid: true
             }
         },
