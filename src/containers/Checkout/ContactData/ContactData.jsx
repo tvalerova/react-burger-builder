@@ -83,6 +83,7 @@ class ContactData extends Component {
                         { value: 'cheapest', displayValue: 'Cheapest' }
                     ]
                 },
+                // this is an error, we will fix this later
                 value: '',
                 // we need to add this even though we do not require validation for the dropdown
                 // this fixes the error we had when we selected something from the dropdown - because it did not have the validation property, the rules check did not work in the if statement
