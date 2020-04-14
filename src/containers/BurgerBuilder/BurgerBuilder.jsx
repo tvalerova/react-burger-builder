@@ -77,6 +77,7 @@ class BurgerBuilder extends Component {
         this.setState({ totalPrice: newPrice, ingredients: updatedIngredients });
         this.updatePurchaseState(updatedIngredients);
     }
+    
     // we pass this method to the BuildControls tag 
     removeIngredientHandler = (type) => {
         const oldCount = this.state.ingredients[type];
