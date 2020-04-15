@@ -21,9 +21,6 @@ class BurgerBuilder extends Component {
 
     state = {
         // we removed the ingredients object we had previously and set it to null, because we will fetch the ingredients from Firebase
-        // ingredients: null, we are not using local state for ingredients anymore
-        // base price for a burger regardless of the ingredients is 4 
-        totalPrice: 4,
         // will turn true if at least one ingredient has been added to the order
         purchasable: false,
         // we need to know if the order button was clicked
@@ -128,14 +125,14 @@ class BurgerBuilder extends Component {
                         purchasable={this.state.purchasable}
                         // this method will get executed when we click the order now button
                         ordered={this.purchaseHandler}
-                        price={this.state.totalPrice} />
+                        price={this.props.price} />
                 </Aux>
             );
             // we moved the OrderSummary tag in here from inside the <Modal>
             // if the state is loading we want to show the spinner instead of OrderSummary
             orderSummary = <OderSummary
                 ingredients={this.props.ings}
-                price={this.state.totalPrice}
+                price={this.props.price}
                 purchaseCanceled={this.purchaseCancelHandler}
                 purchaseContinued={this.purchaseContinueHandler} />;
         }
