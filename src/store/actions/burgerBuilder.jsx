@@ -6,11 +6,26 @@ export const addIngredient = (name) => {
         type: actionTypes.ADD_INGREDIENT,
         ingredientName: name
     }
-}
+};
 
 export const removeIngredient = (name) => {
     return {
         type: actionTypes.REMOVE_INGREDIENT,
         ingredientName: name
+    };
+};
+
+// sync function created
+export const setIngredients = (ingredients) => {
+    return {
+        type: actionTypes.SET_INGREDIENT,
+        ingredients: ingredients
+    };
+};
+
+export const initIngredients = () => {
+    // this syntax is available thanks to redux thunk
+    return dispatch => {
+
     }
 }
