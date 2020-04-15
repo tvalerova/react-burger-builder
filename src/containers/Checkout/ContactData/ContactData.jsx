@@ -5,6 +5,7 @@ import axios from '../../../axios-orders';
 import Spinner from '../../../components/UI/Spinner/Spinner';
 import Input from '../../../components/UI/Input/Input';
 import { connect } from 'react-redux';
+import withErrorHandler from '../../../hoc/withErrorHandler/withErrorHandler';
 
 class ContactData extends Component {
     state = {
@@ -102,7 +103,7 @@ class ContactData extends Component {
     orderHandler = (event) => {
         // we don't want to send the request because it reloads our form
         event.preventDefault();
-        this.setState({ loading: true });
+        // this.setState({ loading: true });
 
         // this is where we get the data from the form
         const formData = {};
@@ -117,7 +118,6 @@ class ContactData extends Component {
             // in a real app this would not be the actual set up - we would recalculate the price on the server
             price: this.props.price,
             orderData: formData
-
         }
     }
 
@@ -226,4 +226,4 @@ const mapStateToProp = state => {
     }
 }
 
-export default connect(mapStateToProp)(ContactData);
+export default connect(mapStateToProp)(withErrorHandler(ContactData, axios ));
