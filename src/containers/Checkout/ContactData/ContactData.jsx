@@ -119,20 +119,6 @@ class ContactData extends Component {
             orderData: formData
 
         }
-        // this is the url that gets appended to the base URL; for Firebase to function, we need to add .json as an end point - in a real app it would be something else
-        axios.post('/orders.json', order)
-            .then(response => {
-                // once we have a response, we want to stop loading
-                // to close the modal after the response, we set purchasing to false
-                this.setState({ loading: false });
-                // once we clicked Order we will be redirected back to home page
-                this.props.history.push('/');
-            })
-            .catch(error => {
-                // we also want to stop loading if we have an error
-                // to close the modal after the response, we set purchasing to false
-                this.setState({ loading: false });
-            });
     }
 
     checkValidity(value, rules) {
