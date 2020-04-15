@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
-
+import axios from '../../axios-orders';
 import Aux from '../../hoc/Aux/Aux';
 import Burger from '../../components/Burger/Burger';
 import BuildControls from '../../components/Burger/BuildControls/BuildControls';
@@ -25,8 +25,6 @@ class BurgerBuilder extends Component {
         // purchasable: false, no longer needed, we will manage this somewhere else
         // we need to know if the order button was clicked
         purchasing: false,
-        loading: false,
-        error: null
     }
 
     componentDidMount() {
@@ -133,10 +131,10 @@ class BurgerBuilder extends Component {
                 purchaseCanceled={this.purchaseCancelHandler}
                 purchaseContinued={this.purchaseContinueHandler} />;
         }
-        // if the state is loading, show spinner
-        if (this.state.loading) {
-            orderSummary = <Spinner />;
-        }
+        // if the state is loading, show spinner - we don't need this anymore because we are not executing anything asynchronously
+        // if (this.state.loading) {
+        //     orderSummary = <Spinner />;
+        // }
 
         return (
             <Aux>
