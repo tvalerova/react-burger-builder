@@ -24,15 +24,21 @@ export const setIngredients = (ingredients) => {
     };
 };
 
+export const fetchIngredientsFailed = () => {
+    return {
+        type: actionTypes.FETCH_INGREDIENTS_FAILED
+    }
+}
+
 export const initIngredients = () => {
     // this syntax is available thanks to redux thunk
     return dispatch => {
         axios.get('https://react-my-burger-125ab.firebaseio.com/ingredients.json')
             .then(response => {
-                this.setState({ ingredients: response.data })
+                dispatch(setIngredients(response.data));
             })
             .catch(error => {
-                this.setState({ error: true })
+                dispatch(fetchIngredientsFailed());
             });
     }
 }
