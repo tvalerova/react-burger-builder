@@ -22,7 +22,7 @@ class BurgerBuilder extends Component {
     state = {
         // we removed the ingredients object we had previously and set it to null, because we will fetch the ingredients from Firebase
         // will turn true if at least one ingredient has been added to the order
-        purchasable: false,
+        // purchasable: false, no longer needed, we will manage this somewhere else
         // we need to know if the order button was clicked
         purchasing: false,
         loading: false,
@@ -52,7 +52,8 @@ class BurgerBuilder extends Component {
                 return sum + el;
             }, 0);
         // this will evaluate to true or false
-        this.setState({ purchasable: sum > 0 });
+        // this.setState({ purchasable: sum > 0 });  we don't need this anymore, we don't use setState
+        return sum > 0;
     }
 
     // originally we used this syntax, but it did not work
@@ -122,7 +123,7 @@ class BurgerBuilder extends Component {
                         // we will now use this method in BuildControls js
                         ingredientRemoved={this.props.onIngredientRemoved}
                         disabled={disabledInfo}
-                        purchasable={this.state.purchasable}
+                        purchasable={this.updatePurchaseState(this.props.ings)}
                         // this method will get executed when we click the order now button
                         ordered={this.purchaseHandler}
                         price={this.props.price} />
