@@ -30,7 +30,7 @@ class BurgerBuilder extends Component {
 
     state = {
         // we removed the ingredients object we had previously and set it to null, because we will fetch the ingredients from Firebase
-        ingredients: null,
+        // ingredients: null, we are not using local state for ingredients anymore
         // base price for a burger regardless of the ingredients is 4 
         totalPrice: 4,
         // will turn true if at least one ingredient has been added to the order
@@ -143,7 +143,7 @@ class BurgerBuilder extends Component {
     render() {
         const disabledInfo = {
             // we create a copy if the ingredients
-            ...this.state.ingredients
+            ...this.props.ings
         };
         // we loop through all the keys of the ingredients
         for (let key in disabledInfo) {
@@ -159,10 +159,10 @@ class BurgerBuilder extends Component {
         let burger = this.state.error ? <p>Ingredients can't be loaded!</p> : <Spinner />;
        
         // once the ingredients load we will show the burger
-        if (this.state.ingredients) {
+        if (this.props.ings) {
             burger = (
                 <Aux>
-                    <Burger ingredients={this.state.ingredients} />
+                    <Burger ingredients={this.props.ings} />
                     <BuildControls
                         ingredientAdded={this.addIngredientHandler}
                         // we will now use this method in BuildControls js
@@ -177,7 +177,7 @@ class BurgerBuilder extends Component {
             // we moved the OrderSummary tag in here from inside the <Modal>
             // if the state is loading we want to show the spinner instead of OrderSummary
             orderSummary = <OderSummary
-                ingredients={this.state.ingredients}
+                ingredients={this.props.ings}
                 price={this.state.totalPrice}
                 purchaseCanceled={this.purchaseCancelHandler}
                 purchaseContinued={this.purchaseContinueHandler} />;
@@ -216,4 +216,4 @@ const mapDispatchToProps = dispatch => {
 
 // the other way of using HOC - we wrap the export with it
 // because we have two arguments in the HOC, we need to have two args here as well
-export default withErrorHandler(BurgerBuilder, axios);
+export default connect(mapStateToProps, mapDispatchToProps)(withErrorHandler(BurgerBuilder, axios));
