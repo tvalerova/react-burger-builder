@@ -8,6 +8,7 @@ const initialState = {
         cheese: 0,
         meat: 0
     },
+    // base price for a burger regardless of the ingredients is 4 
     totalPrice: 4,
 };
 
