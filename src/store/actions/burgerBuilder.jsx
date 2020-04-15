@@ -1,4 +1,5 @@
 import * as actionTypes from './actionTypes';
+import axios from '../../axios-orders';
 
 // we name our action creators the same as the identifiers, only in cameCase
 export const addIngredient = (name) => {
@@ -26,6 +27,12 @@ export const setIngredients = (ingredients) => {
 export const initIngredients = () => {
     // this syntax is available thanks to redux thunk
     return dispatch => {
-
+        axios.get('https://react-my-burger-125ab.firebaseio.com/ingredients.json')
+            .then(response => {
+                this.setState({ ingredients: response.data })
+            })
+            .catch(error => {
+                this.setState({ error: true })
+            });
     }
 }

@@ -2,14 +2,11 @@ import * as actionTypes from '../actions/actionTypes';
 
 const initialState = {
     // we copied this from burgerbuilder
-    ingredients: {
-        salad: 0,
-        bacon: 0,
-        cheese: 0,
-        meat: 0
-    },
+    // we set the ingredients to null again because we are fetching them from firebase again
+    ingredients: null,
     // base price for a burger regardless of the ingredients is 4 
     totalPrice: 4,
+    error: false
 };
 
 // capital letters - they will be used as global constants
