@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {connetct} from 'react-redux';
+import {connect} from 'react-redux';
 
 import Aux from '../../hoc/Aux/Aux';
 import Burger from '../../components/Burger/Burger';
@@ -164,9 +164,9 @@ class BurgerBuilder extends Component {
                 <Aux>
                     <Burger ingredients={this.props.ings} />
                     <BuildControls
-                        ingredientAdded={this.addIngredientHandler}
+                        ingredientAdded={this.props.onIngredientAdded}
                         // we will now use this method in BuildControls js
-                        ingredientRemoved={this.removeIngredientHandler}
+                        ingredientRemoved={this.props.onIngredientRemoved}
                         disabled={disabledInfo}
                         purchasable={this.state.purchasable}
                         // this method will get executed when we click the order now button
