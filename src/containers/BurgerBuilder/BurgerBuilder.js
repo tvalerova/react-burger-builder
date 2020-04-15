@@ -9,6 +9,7 @@ import OderSummary from '../../components/Burger/OrderSummary/OrderSummary';
 import axios from '../../axios-orders';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
+import * as actionTypes from '../../store/actions';
 
 // capital letters - they will be used as global constants
 const INGREDIENT_PRICES = {
@@ -198,6 +199,21 @@ class BurgerBuilder extends Component {
         );
     }
 }
+
+const mapStateToProps = state => {
+    return {
+        ings: state.ingredients
+    };
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        onIngredientAdded: (ingName) => dispatch({type: actionTypes.ADD_INGREDIENT, ingredientName: ingName}),
+        onIngredientRemoved: (ingName) => dispatch({type: actionTypes.REMOVE_INGREDIENT, ingredientName: ingName}),
+    }
+}
+
+
 // the other way of using HOC - we wrap the export with it
 // because we have two arguments in the HOC, we need to have two args here as well
 export default withErrorHandler(BurgerBuilder, axios);
