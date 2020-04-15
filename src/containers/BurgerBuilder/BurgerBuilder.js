@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {connetct} from 'react-redux';
 
 import Aux from '../../hoc/Aux/Aux';
 import Burger from '../../components/Burger/Burger';
