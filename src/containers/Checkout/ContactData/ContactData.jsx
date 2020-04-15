@@ -4,6 +4,7 @@ import './ContactData.css';
 import axios from '../../../axios-orders';
 import Spinner from '../../../components/UI/Spinner/Spinner';
 import Input from '../../../components/UI/Input/Input';
+import { connect } from 'react-redux';
 
 class ContactData extends Component {
     state = {
@@ -112,7 +113,7 @@ class ContactData extends Component {
         }
 
         const order = {
-            ingredients: this.props.ingredients,
+            ingredients: this.props.ings,
             // in a real app this would not be the actual set up - we would recalculate the price on the server
             price: this.props.price,
             orderData: formData
@@ -143,7 +144,7 @@ class ContactData extends Component {
 
         if (rules.required) {
             // trim will remove whitespaces; if value is not empty then isValid = true
-            isValid = value.trim() !=='' && isValid;
+            isValid = value.trim() !== '' && isValid;
         }
         // for zipcode validation
         if (rules.minLength) {
@@ -156,7 +157,7 @@ class ContactData extends Component {
 
         // will return true or false
         return isValid;
-    } 
+    }
 
     // here we set up two-way binding: we input something into the input field and it updates in the form
     inputChangedHandler = (event, inputIdentifier) => {
@@ -177,7 +178,7 @@ class ContactData extends Component {
         updatedFormElement.touched = true;
         // we access the inputIdentifier in the updatedOrderForm and set it to the updatedFormElement
         updatedOrderForm[inputIdentifier] = updatedFormElement;
-        
+
         let formIsValid = true;
         // we are looping through all the elements in the form
         for (let inputIdentifier in updatedOrderForm) {
@@ -232,4 +233,11 @@ class ContactData extends Component {
     }
 }
 
-export default ContactData;
+const mapStateToProp = state => {
+    return {
+        ings: state.ingredients,
+        price: state.totalPrice
+    }
+}
+
+export default connect(mapStateToProp)(ContactData);
