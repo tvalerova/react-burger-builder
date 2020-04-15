@@ -48,6 +48,14 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 ingredients: action.ingredients,
+                // right now we fetch our ingredients from firebase which will sort them alphavetically
+                // if we want to change the order of the we could do it this way
+                // ingredients: {
+                //     salad: action.ingredients.salad,
+                //     bacon: action.ingredients.bacon,
+                //     cheese: action.ingredients.cheese,
+                //     meat: action.ingredients.meat
+                // },
                 error: false
             };
         case actionTypes.FETCH_INGREDIENTS_FAILED:
