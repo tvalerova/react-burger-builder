@@ -19,6 +19,7 @@ class BurgerBuilder extends Component {
     //     this.state = {...}
     // }
 
+    // this will remain managed in state because it is local UI, there is no need to manaage these throguh redux
     state = {
         // we removed the ingredients object we had previously and set it to null, because we will fetch the ingredients from Firebase
         // will turn true if at least one ingredient has been added to the order
