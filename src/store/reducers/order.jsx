@@ -2,11 +2,17 @@ import * as actionTypes from '../actions/actionTypes';
 
 const initialState = {
     orders: [],
-    loading: false
+    loading: false,
+    purchased: false
 }
 
 const reducer = (state = initialState, action) => {
     swtich(action.type) {
+        case actionTypes.PURCHASE_INIT:
+            return {
+                ...state,
+                purchased: false
+            }
         case actionTypes.PURCHASE_BURGER_START:
             return {
                 ...state,
@@ -20,7 +26,9 @@ const newOrder = {
 return {
     ...state,
     loading: false,
-    orders: state.orders.concat(newOrder)
+    purchased: true,
+    orders: state.orders.concat(newOrder),
+    
 };
             case actionTypes.PURCHASE_BURGER_SUCCESS:
 return {
