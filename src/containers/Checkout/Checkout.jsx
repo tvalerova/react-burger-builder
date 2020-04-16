@@ -78,7 +78,7 @@ class Checkout extends Component {
 // we do not need dispatch here because we are not dispatching anything in this container
 const mapStateToProps = state => {
     return {
-        ings: state.ingredients,
+        ings: state.burgerBuilder.ingredients,
     }
 };
 
