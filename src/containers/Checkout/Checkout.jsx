@@ -3,17 +3,14 @@ import CheckoutSummary from '../../components/Order/CheckoutSummary/CheckoutSumm
 import { Route, Redirect } from 'react-router-dom';
 import ContactData from './ContactData/ContactData';
 import { connect } from 'react-redux';
+import * as actions from '../../store/actions/index';
 
 class Checkout extends Component {
-    // state = {
-    //     ingredients: {
-    //         salad: 1,
-    //         meat: 1,
-    //         cheese: 1,
-    //         bacon: 1
-    //     }
-    // }
-
+    
+    componentWillMount () {
+        this.props.onInitPurchase();
+    }
+ 
     // here we need to pass the query to the checkout component, so we have the information about the ordered burger
     // componentWillMount() {
     //     // we need to extract the query params
@@ -80,6 +77,12 @@ const mapStateToProps = state => {
     return {
         ings: state.burgerBuilder.ingredients,
     }
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        onInitPurchase: () => dispatch(action.purchaseInit())
+    };
 };
 
 export default connect(mapStateToProps)(Checkout);
