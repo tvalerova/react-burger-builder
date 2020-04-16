@@ -40,10 +40,10 @@ class Auth extends Component {
     render() {
         const formElementsArray = [];
         // we covert the oderForm object into an array
-        for (let key in this.state.orderForm) {
+        for (let key in this.state.controls) {
             formElementsArray.push({
                 id: key,
-                config: this.state.orderForm[key]
+                config: this.state.controls[key]
             });
         }
 
