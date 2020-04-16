@@ -6,11 +6,11 @@ import { connect } from 'react-redux';
 import * as actions from '../../store/actions/index';
 
 class Checkout extends Component {
-    
-    componentWillMount () {
+
+    componentWillMount() {
         this.props.onInitPurchase();
     }
- 
+
     // here we need to pass the query to the checkout component, so we have the information about the ordered burger
     // componentWillMount() {
     //     // we need to extract the query params
@@ -48,8 +48,11 @@ class Checkout extends Component {
     render() {
         let summary = <Redirect to='/' />
         if (this.props.ings) {
+            const purchasedRedirect = this.props.purchased ? <Redirect to='/' /> : null;
+
             summary = (
                 <div>
+                    {purchasedRedirect}
                     <CheckoutSummary
                         ingredients={this.props.ings}
                         checkoutCanceled={this.checkoutCanceledHandler}
@@ -76,13 +79,8 @@ class Checkout extends Component {
 const mapStateToProps = state => {
     return {
         ings: state.burgerBuilder.ingredients,
+        purchased: state.order.purchased
     }
-};
-
-const mapDispatchToProps = dispatch => {
-    return {
-        onInitPurchase: () => dispatch(action.purchaseInit())
-    };
 };
 
 export default connect(mapStateToProps)(Checkout);
