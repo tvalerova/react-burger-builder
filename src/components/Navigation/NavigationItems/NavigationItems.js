@@ -8,6 +8,7 @@ const navigationItems = () => (
         {/* active is a boolean, we dont have to say active={true}, it is enough as it is */}
         <NavigationItem link="/" exact >Burger Builder</NavigationItem>
         <NavigationItem link="/orders">Orders</NavigationItem>
+        <NavigationItem link="/auth">Authenticate</NavigationItem>
     </ul>
 );
 
