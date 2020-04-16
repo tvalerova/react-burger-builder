@@ -27,7 +27,7 @@ const authFail = (state, action) => {
 }
 
 
-const reducer = (state, action) => {
+const reducer = (state=initialState, action) => {
     switch (action.type) {
         case actionTypes.AUTH_START: return authStart(state, action);
         case actionTypes.AUTH_SUCCESS: return authSuccess(state, action);
