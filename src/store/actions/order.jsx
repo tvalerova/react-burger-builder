@@ -41,5 +41,11 @@ export const purchaseBurger = (orderData) => {
                 // this.setState({ loading: false });
                 dispatch(purchaseBurgerFail(error));
             });
-    }
-}
+    };
+};
+
+export const purchaseInit = () => {
+    return {
+        type: actionTypes.PURCHASE_INIT
+    };
+};
