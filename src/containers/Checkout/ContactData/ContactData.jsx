@@ -98,7 +98,6 @@ class ContactData extends Component {
             }
         },
         formIsValid: false,
-        loading: false
     }
 
     orderHandler = (event) => {
@@ -209,7 +208,7 @@ class ContactData extends Component {
                 <Button btnType="Success" disabled={!this.state.formIsValid} >ORDER</Button>
             </form>
         );
-        if (this.state.loading) {
+        if (this.props.loading) {
             form = <Spinner />;
         }
         return (
@@ -224,7 +223,8 @@ class ContactData extends Component {
 const mapStateToProp = state => {
     return {
         ings: state.ingredients,
-        price: state.totalPrice
+        price: state.totalPrice,
+        loading: state.loading
     }
 };
 
@@ -234,4 +234,4 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default connect(mapStateToProp)(withErrorHandler(ContactData, axios ));
+export default connect(mapStateToProp, mapDispatchToProps)(withErrorHandler(ContactData, axios ));
