@@ -87,7 +87,7 @@ class ContactData extends Component {
                     ]
                 },
                 // this is an error, we will fix this later
-                value: '',
+                value: 'fastest',
                 // we need to add this even though we do not require validation for the dropdown
                 // this fixes the error we had when we selected something from the dropdown - because it did not have the validation property, the rules check did not work in the if statement
                 validation: {},
