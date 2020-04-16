@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import CheckoutSummary from '../../components/Order/CheckoutSummary/CheckoutSummary';
-import { Route } from 'react-router-dom';
+import { Route, Redirect } from 'react-router-dom';
 import ContactData from './ContactData/ContactData';
 import { connect } from 'react-redux';
 
@@ -49,22 +49,28 @@ class Checkout extends Component {
     }
 
     render() {
+        let summary = <Redirect to='/' />
+        if (this.props.ings) {
+            summary = (
+                <div>
+                    <CheckoutSummary
+                        ingredients={this.props.ings}
+                        checkoutCanceled={this.checkoutCanceledHandler}
+                        checkoutContinued={this.checkoutContinuedHandler} />
+                    <Route
+                        path={this.props.match.path + '/contact-data'}
+                        // when we pass the ContacData into render and not as component, we can pass props to it
+                        // render={(props) => (<ContactData ingredients={this.state.ingredients}
+                        //     // because we are rendering the contact data component manually and not through the component prop
+                        //     // we don't have access to the props objects such as history and location - we therefore passed it to render
+                        //     // and distribute the with the spread operator - then the push method in ContactData will work and after clicking Order we will be redirected to homepage
+                        //     price={this.state.totalPrice} {...props} />)} 
+                        component={ContactData} />
+                </div>
+            );
+        }
         return (
-            <div>
-                <CheckoutSummary
-                    ingredients={this.props.ings}
-                    checkoutCanceled={this.checkoutCanceledHandler}
-                    checkoutContinued={this.checkoutContinuedHandler} />
-                <Route
-                    path={this.props.match.path + '/contact-data'}
-                    // when we pass the ContacData into render and not as component, we can pass props to it
-                    // render={(props) => (<ContactData ingredients={this.state.ingredients}
-                    //     // because we are rendering the contact data component manually and not through the component prop
-                    //     // we don't have access to the props objects such as history and location - we therefore passed it to render
-                    //     // and distribute the with the spread operator - then the push method in ContactData will work and after clicking Order we will be redirected to homepage
-                    //     price={this.state.totalPrice} {...props} />)} 
-                    component={ContactData} />
-            </div>
+            { summary }
         )
     }
 }
