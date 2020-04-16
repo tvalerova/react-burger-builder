@@ -1,5 +1,5 @@
 import * as actionTypes from '../actions/actionTypes';
-import {updateObject} from '../utility';
+import { updateObject } from '../utility';
 
 const initialState = {
     // we copied this from burgerbuilder
@@ -30,32 +30,25 @@ const reducer = (state = initialState, action) => {
             return updateObject(state, updatedState);
         case actionTypes.REMOVE_INGREDIENT:
             const updatedIng = { [action.ingredientName]: state.ingredients[action.ingredientName] - 1 };
-            const updatedIngs = updateObject(state.ingredients, updatedIngredient);
+            const updatedIngs = updateObject(state.ingredients, updatedIng);
             const updatedSt = {
-                ingredients: updatedIngredients,
+                ingredients: updatedIngs,
                 totalPrice: state.totalPrice + INGREDIENT_PRICES[action.ingredientName]
             }
-            return updateObject(state, updatedState);
+            return updateObject(state, updatedSt);
         case actionTypes.SET_INGREDIENT:
-            return {
-                ...state,
-                ingredients: action.ingredients,
-                // right now we fetch our ingredients from firebase which will sort them alphavetically
-                // if we want to change the order of the we could do it this way
-                // ingredients: {
-                //     salad: action.ingredients.salad,
-                //     bacon: action.ingredients.bacon,
-                //     cheese: action.ingredients.cheese,
-                //     meat: action.ingredients.meat
-                // },
+            return updateObject(state, {
+                ingredients: {
+                    salad: action.ingredients.salad,
+                    bacon: action.ingredients.bacon,
+                    cheese: action.ingredients.cheese,
+                    meat: action.ingredients.meat
+                },
                 totalPrice: 4,
                 error: false
-            };
+            });
         case actionTypes.FETCH_INGREDIENTS_FAILED:
-            return {
-                ...state,
-                error: true
-            }
+            return updateObject(state, { error: true });
         default:
             return state;
     }
