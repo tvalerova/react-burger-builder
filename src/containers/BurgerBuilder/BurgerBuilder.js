@@ -105,8 +105,8 @@ class BurgerBuilder extends Component {
                         purchasable={this.updatePurchaseState(this.props.ings)}
                         // this method will get executed when we click the order now button
                         ordered={this.purchaseHandler}
-                        price={this.props.price} 
-                        isAuth={this.props.isAuthenticated} />
+                        isAuth={this.props.isAuthenticated} 
+                        price={this.props.price} />
                 </Aux>
             );
             // we moved the OrderSummary tag in here from inside the <Modal>
