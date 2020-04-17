@@ -7,10 +7,6 @@ import * as actions from '../../store/actions/index';
 
 class Checkout extends Component {
 
-    componentWillMount() {
-        this.props.onInitPurchase();
-    }
-
     // here we need to pass the query to the checkout component, so we have the information about the ordered burger
     // componentWillMount() {
     //     // we need to extract the query params
@@ -49,7 +45,6 @@ class Checkout extends Component {
         let summary = <Redirect to='/' />
         if (this.props.ings) {
             const purchasedRedirect = this.props.purchased ? <Redirect to='/' /> : null;
-
             summary = (
                 <div>
                     {purchasedRedirect}
@@ -69,9 +64,7 @@ class Checkout extends Component {
                 </div>
             );
         }
-        return (
-            { summary }
-        )
+        return summary 
     }
 }
 
