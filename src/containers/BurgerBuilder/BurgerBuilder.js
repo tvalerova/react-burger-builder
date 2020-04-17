@@ -12,28 +12,17 @@ import * as actions from '../../store/actions/index';
 
 // this is a class because we want to manage state here
 class BurgerBuilder extends Component {
-    // we could also manage the state this way, but using only state is a more modern syntax
-    // constructor(props) {
-    //     super(props);
-    //     this.state = {...}
-    // }
-
     // this will remain managed in state because it is local UI, there is no need to manaage these throguh redux
     state = {
-        // we removed the ingredients object we had previously and set it to null, because we will fetch the ingredients from Firebase
-        // will turn true if at least one ingredient has been added to the order
-        // purchasable: false, no longer needed, we will manage this somewhere else
         // we need to know if the order button was clicked
         purchasing: false,
     }
 
     componentDidMount() {
-        // code cut out and pasted into actions/burgerBuilder in the store folder
         this.props.onInitIngredients();
     }
 
     updatePurchaseState(ingredients) {
-
         // the keys will create an array of strings entries, such as salad, bacon, cheese etc
         const sum = Object.keys(ingredients)
             .map(igKey => {
@@ -43,22 +32,16 @@ class BurgerBuilder extends Component {
             }).reduce((sum, el) => {
                 return sum + el;
             }, 0);
-        // this will evaluate to true or false
-        // this.setState({ purchasable: sum > 0 });  we don't need this anymore, we don't use setState
         return sum > 0;
     }
 
-    // originally we used this syntax, but it did not work
-    // purchaseHandler () {
-    //     this.setState({purchasing: true});
-    // }
-    // this syntax does not work correctly when we try to use "this" keyword in there
-    // if the method is triggered through an event - in this case "this" will then not refer to the class
-    // we need to use arrow function
-
     // this method should be triggered when we click the order button
     purchaseHandler = () => {
-        this.setState({ purchasing: true });
+        if (this.props.isAuthenticated) {
+            this.setState({ purchasing: true });
+        } else {
+            this.props.history.push('/auth');
+        }
     }
 
     purchaseCancelHandler = () => {
@@ -169,7 +152,6 @@ const mapDispatchToProps = dispatch => {
         onInitPurchase: () => dispatch(actions.purchaseInit())
     }
 }
-
 
 // the other way of using HOC - we wrap the export with it
 // because we have two arguments in the HOC, we need to have two args here as well
