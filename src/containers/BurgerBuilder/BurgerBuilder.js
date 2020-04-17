@@ -122,7 +122,8 @@ class BurgerBuilder extends Component {
                         purchasable={this.updatePurchaseState(this.props.ings)}
                         // this method will get executed when we click the order now button
                         ordered={this.purchaseHandler}
-                        price={this.props.price} />
+                        price={this.props.price} 
+                        isAuth={this.props.isAuthenticated} />
                 </Aux>
             );
             // we moved the OrderSummary tag in here from inside the <Modal>
@@ -155,7 +156,8 @@ const mapStateToProps = state => {
     return {
         ings: state.burgerBuilder.ingredients,
         price: state.burgerBuilder.totalPrice,
-        error: state.burgerBuilder.error
+        error: state.burgerBuilder.error,
+        isAuthenticated: state.auth.token !== null
     };
 }
 

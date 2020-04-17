@@ -24,10 +24,10 @@ const buildControls = (props) => (
                 disabled={props.disabled[ctrl.type]} />
         ))}
         <button
-            className={'OrderButton'}
+            className='OrderButton'
             // disabled should be true if the burger is not purchasable
             disabled={!props.purchasable}
-            onClick={props.ordered}>ORDER NOW</button>
+            onClick={props.ordered}>{props.isAuht ? 'ORDER NOW' : 'SIGN IN TO ORDER'}</button>
     </div>
 );
 
