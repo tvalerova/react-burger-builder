@@ -35,7 +35,6 @@ class BurgerBuilder extends Component {
         return sum > 0;
     }
 
-    // this method should be triggered when we click the order button
     purchaseHandler = () => {
         if (this.props.isAuthenticated) {
             this.setState({ purchasing: true });
