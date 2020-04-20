@@ -27,7 +27,7 @@ const buildControls = (props) => (
             className='OrderButton'
             // disabled should be true if the burger is not purchasable
             disabled={!props.purchasable}
-            onClick={props.ordered}>{props.isAuht ? 'ORDER NOW' : 'SIGN IN TO ORDER'}</button>
+            onClick={props.ordered}>{props.isAuth ? 'ORDER NOW' : 'SIGN IN TO ORDER'}</button>
     </div>
 );
 
