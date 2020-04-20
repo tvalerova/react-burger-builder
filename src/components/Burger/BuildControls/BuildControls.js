@@ -1,6 +1,7 @@
 import React from 'react';
-import './BuildControls.css'
-import BuildControl from './BuildControl/BuildControl'
+
+import classes from './BuildControls.css';
+import BuildControl from './BuildControl/BuildControl';
 
 const controls = [
     { label: 'Salad', type: 'salad' },
@@ -9,25 +10,21 @@ const controls = [
     { label: 'Meat', type: 'meat' },
 ];
 
-const buildControls = (props) => (
-    <div className='BuildControls'>
-        {/* to only show 2 decimals in the price, we use the toFixed method */}
-        <p>Current Price: <strong>{props.price.toFixed(2)}</strong></p>
-        {controls.map(ctrl => (
+const buildControls = ( props ) => (
+    <div className={classes.BuildControls}>
+        <p>Current Price: <strong>{props.price.toFixed( 2 )}</strong></p>
+        {controls.map( ctrl => (
             <BuildControl
                 key={ctrl.label}
                 label={ctrl.label}
-                // we have access to types because we are looping through controls
-                added={() => props.ingredientAdded(ctrl.type)}
-                // we use the method the property we defined in BurgerBuilder js
-                removed={() => props.ingredientRemoved(ctrl.type)}
+                added={() => props.ingredientAdded( ctrl.type )}
+                removed={() => props.ingredientRemoved( ctrl.type )}
                 disabled={props.disabled[ctrl.type]} />
-        ))}
+        ) )}
         <button
-            className='OrderButton'
-            // disabled should be true if the burger is not purchasable
+            className={classes.OrderButton}
             disabled={!props.purchasable}
-            onClick={props.ordered}>{props.isAuth ? 'ORDER NOW' : 'SIGN IN TO ORDER'}</button>
+            onClick={props.ordered}>{props.isAuth ? 'ORDER NOW' : 'SIGN UP TO ORDER'}</button>
     </div>
 );
 
