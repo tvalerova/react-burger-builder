@@ -15,7 +15,7 @@ class BurgerBuilder extends Component {
     // this will remain managed in state because it is local UI, there is no need to manaage these throguh redux
     state = {
         // we need to know if the order button was clicked
-        purchasing: false,
+        purchasing: false
     }
 
     componentDidMount() {
@@ -37,7 +37,7 @@ class BurgerBuilder extends Component {
 
     purchaseHandler = () => {
         if (this.props.isAuthenticated) {
-            this.setState({ purchasing: true });
+            this.setState( { purchasing: true } );
         } else {
             this.props.onSetAuthRedirectPath('/checkout');
             this.props.history.push('/auth');
