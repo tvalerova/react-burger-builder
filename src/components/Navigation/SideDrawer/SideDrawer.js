@@ -17,7 +17,7 @@ const sideDrawer = (props) => {
             {/* backdrop will alway show since show = true */}
             <Backdrop show={props.open} clicked={props.closed}/>
             <div className={attachedClasses.join(' ')} onClick={props.closed}>
-                <div className={styles.Logo}>
+                <div className='Logo'>
                     <Logo />
                 </div>
                 <nav>
