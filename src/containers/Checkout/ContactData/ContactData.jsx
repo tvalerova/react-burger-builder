@@ -7,6 +7,8 @@ import Input from '../../../components/UI/Input/Input';
 import { connect } from 'react-redux';
 import withErrorHandler from '../../../hoc/withErrorHandler/withErrorHandler';
 import * as actions from '../../../store/actions/index';
+import { updateObject } from '../../../share/utility';
+
 
 class ContactData extends Component {
     state = {
@@ -157,23 +159,14 @@ class ContactData extends Component {
 
     // here we set up two-way binding: we input something into the input field and it updates in the form
     inputChangedHandler = (event, inputIdentifier) => {
-        const updatedOrderForm = {
-            // we create a copy of the orderForm object to not change the original one
-            ...this.state.orderForm
-        };
-        // because we have nested objects in the orderForm, they won't get copied deeply = if we make changes to some of the nested elements, we are still mutating the originals, they are not copies
-        // we therefore use the spread operator one more time to make copies of the nested elements as well = we cloned it deeply
-        const updatedFormElement = {
-            ...updatedOrderForm[inputIdentifier]
-        };
-        // here we set the value of updatedFormElement to value of the user input
-        updatedFormElement.value = event.target.value;
-        // we want to update the valid value; we pass two args to checkValidity - the value from the user input, and the rule from the object
-        updatedFormElement.valid = this.checkValidity(updatedFormElement.value, updatedFormElement.validation);
-        // once user typed something, we set touched to true
-        updatedFormElement.touched = true;
-        // we access the inputIdentifier in the updatedOrderForm and set it to the updatedFormElement
-        updatedOrderForm[inputIdentifier] = updatedFormElement;
+        const updatedFormElement = updateObject(this.state.orderForm[inputIdentifier], {
+            value: event.target.value,
+            valid: this.checkValidity(event.target.value, this.state.orderForm[inputIdentifier].validation),
+            touched: true
+        });
+        const updatedOrderForm = updateObject(this.state.orderForm, {
+            [inputIdentifier]: updatedFormElement
+        });
 
         let formIsValid = true;
         // we are looping through all the elements in the form
