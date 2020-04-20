@@ -22,7 +22,6 @@ const rootReducer = combineReducers({
   auth: authReducer
 });
 
-// redux devTools added
 const store = createStore(rootReducer, composeEnhancers(
   applyMiddleware(thunk)
 ));
