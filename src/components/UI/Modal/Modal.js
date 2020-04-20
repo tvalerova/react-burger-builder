@@ -12,12 +12,7 @@ class Modal extends Component {
         // we only want to update the component if there is a change =  nextProps are not the same as current props
         // we need to also check that if the children change, it also updated (we are passing a spinner as a child to the modal)
         return nextProps.show !== this.props.show || nextProps.children !== this.props.children;
-    }
-    // this is just a check for the console, to see if and when it updates
-    
-    // componentWillUpdate () {
-    //     console.log('[Modal] WillUpdate');
-    // }
+    }    
 
     render() {
         return (
