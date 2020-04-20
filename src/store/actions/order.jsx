@@ -1,6 +1,5 @@
 import * as actionTypes from './actionTypes';
 import axios from '../../axios-orders';
-import { useImperativeHandle } from 'react';
 
 export const purchaseBurgerSuccess = (id, orderData) => {
     return {
@@ -75,8 +74,8 @@ export const fetchOrders = (token, userId) => {
     return dispatch => {
         dispatch(fetchOrdersStart());
         // orderBy is understood by Firebase - it can filter on it
-        const queryParams = '?auth=' + token + '&orderBy="userId"&qwualTo="' + userId + '"';
-        axios.get('/orders.json?auth=' + queryParams)
+        const queryParams = '?auth=' + token + '&orderBy="userId"&equalTo="' + userId + '"';
+        axios.get('/orders.json?' + queryParams)
             .then(res => {
                 const fetchedOrders = [];
                 for (let key in res.data) {
