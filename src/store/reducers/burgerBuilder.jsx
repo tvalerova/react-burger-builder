@@ -1,6 +1,5 @@
 import * as actionTypes from '../actions/actionTypes';
 import { updateObject } from '../../shared/utility';
-import { setIngredients } from '../actions/burgerBuilder';
 
 const initialState = {
     // we copied this from burgerbuilder
