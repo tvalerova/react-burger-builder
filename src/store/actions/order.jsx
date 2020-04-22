@@ -50,14 +50,14 @@ export const purchaseInit = () => {
     };
 };
 
-export const fetchOrdersSuccess = (orders) => {
+export const fetchOrdersSuccess = ( orders ) => {
     return {
         type: actionTypes.FETCH_ORDERS_SUCCESS,
         orders: orders
     };
 };
 
-export const fetchOrdersFail = (error) => {
+export const fetchOrdersFail = ( error ) => {
     return {
         type: actionTypes.FETCH_ORDERS_FAIL,
         error: error
@@ -66,29 +66,50 @@ export const fetchOrdersFail = (error) => {
 
 export const fetchOrdersStart = () => {
     return {
-        type: actionTypes.FETCH_ORDERS_START,
+        type: actionTypes.FETCH_ORDERS_START
     };
 };
+
+// export const fetchOrders = (token, userId) => {
+//     return dispatch => {
+//         dispatch(fetchOrdersStart());
+//         // orderBy is understood by Firebase - it can filter on it
+//         const queryParams = '?auth=' + token + '&orderBy="userId"&equalTo="' + userId + '"';
+//         axios.get('/orders.json?' + queryParams)
+//             .then(res => {
+//                 const fetchedOrders = [];
+//                 for (let key in res.data) {
+//                     // we are fetching the order objects from Firebase and their ids
+//                     fetchedOrders.push({
+//                         ...res.data[key],
+//                         id: key
+//                     });
+//                 }
+//                 dispatch(fetchOrdersSuccess(fetchedOrders));
+//             })
+//             .catch(err => {
+//                 dispatch(fetchOrdersFail(err));
+//             });
+//     }
+// }
 
 export const fetchOrders = (token, userId) => {
     return dispatch => {
         dispatch(fetchOrdersStart());
-        // orderBy is understood by Firebase - it can filter on it
         const queryParams = '?auth=' + token + '&orderBy="userId"&equalTo="' + userId + '"';
-        axios.get('/orders.json?' + queryParams)
-            .then(res => {
+        axios.get( '/orders.json' + queryParams)
+            .then( res => {
                 const fetchedOrders = [];
-                for (let key in res.data) {
-                    // we are fetching the order objects from Firebase and their ids
-                    fetchedOrders.push({
+                for ( let key in res.data ) {
+                    fetchedOrders.push( {
                         ...res.data[key],
                         id: key
-                    });
+                    } );
                 }
                 dispatch(fetchOrdersSuccess(fetchedOrders));
-            })
-            .catch(err => {
+            } )
+            .catch( err => {
                 dispatch(fetchOrdersFail(err));
-            });
-    }
-}
+            } );
+    };
+};
