@@ -1,6 +1,5 @@
 import React from 'react';
 // we are doing this just to show that it is possible to have access to the same props as in routed components
-import {withRouter} from 'react-router-dom';
 
 import './Burger.css';
 import BurgerIngredient from './BurgerIngredient/BurgerIngredient';
@@ -28,11 +27,11 @@ const burger = (props) => {
         transformedIngredients = <p> Please start adding ingredients! </p>;
     }
     return ( 
-        <div className = 'Burger' >
+        <div className='Burger'>
         <BurgerIngredient type = "bread-top" /> { transformedIngredients } 
         <BurgerIngredient type = "bread-bottom" />
         </div>
     );
 };
 
-export default withRouter(burger);
+export default burger;
