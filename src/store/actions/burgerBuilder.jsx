@@ -6,7 +6,7 @@ export const addIngredient = (name) => {
     return {
         type: actionTypes.ADD_INGREDIENT,
         ingredientName: name
-    }
+    };
 };
 
 export const removeIngredient = (name) => {
@@ -27,8 +27,8 @@ export const setIngredients = (ingredients) => {
 export const fetchIngredientsFailed = () => {
     return {
         type: actionTypes.FETCH_INGREDIENTS_FAILED
-    }
-}
+    };
+};
 
 export const initIngredients = () => {
     // this syntax is available thanks to redux thunk
@@ -40,5 +40,5 @@ export const initIngredients = () => {
             .catch(error => {
                 dispatch(fetchIngredientsFailed());
             });
-    }
-}
+    };
+};
