@@ -1,4 +1,3 @@
-import axios from 'axios';
 import * as actionTypes from './actionTypes';
 
 export const authStart = () => {
@@ -44,7 +43,7 @@ export const checkAuthTimeout = (expirationTime) => {
     };
 };
 
-export const auth = (email, password, isSignp) => {
+export const auth = (email, password, isSignup) => {
     return {
         type: actionTypes.AUTH_USER, 
         email: email,
@@ -62,19 +61,7 @@ export const setAuthRedirectPath = (path) => {
 
 // the app would log user out when they refresh, this will get the token if it is stored and log them back in
 export const authCheckState = () => {
-    return dispatch => {
-        const token = localStorage.getItem('token');
-        if (!token) {
-            dispatch(logout());
-        } else {
-            const expirationDate = new Date(localStorage.getItem('expirationDate'));
-            if (expirationDate <= new Date()) {
-                dispatch(logout());
-            } else {
-                const userId = localStorage.getItem('userId');
-                dispatch(authSuccess(token, userId));
-                dispatch(checkAuthTimeout((expirationDate.getTime() - new Date().getTime()) /1000 ));
-            }
-        }
-    };
+    return {
+        type: actionTypes.AUTH_CHECK_STATE
+    }
 };
